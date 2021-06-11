@@ -3,5 +3,5 @@ drop tcp $HOME_NET any -> $EXTERNAL_NET any (msg:”ET TROJAN Likely Bot Nick in
 alert dns any any -> any any (dns.query; to_md5; datarep:dns_md5, >, 200, load dns_md5.rep, type md5, memcap 100mb, hashsize 2048; sid:1;)
 alert dns any any -> any any (dns.query; to_sha256; datarep:dns_sha256, >, 200, load dns_sha256.rep, type sha256; sid:2;)
 drop https $EXTERNAL_NET any -> $HOME_NET any (msg: "Behinder3567  PHP HTTP Response"; flow: established,to_client; content:"200"; http_stat_code; flowbits: isset,behinder3; pcre:"/[a-zA-Z0-9+/]{100,}=/i"; classtype:shellcode-detect; sid: 3016018; rev: 1; metadata:created_at 2020_08_17,by al0ne;)
-alert http any any -> any any (http_response_line; content:"403 Forbidden"; sid:1;)
+alert http any any -> any any (http_response_line; content:"403 Forbidden"; sid:11;)
 alert dns any any -> any any (dns.query; datarep:dns_string, >, 200, load dns_string.rep, type string; sid:3;)
